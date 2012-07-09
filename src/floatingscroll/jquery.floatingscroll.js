@@ -2,7 +2,7 @@
  * jQuery floatingscroll Plugin 1.0.1
  * supported by jQuery v1.3+
  *
- * http://plugins.jquery.com/project/floatingscroll
+ * https://github.com/Amphiluke/jquery-plugins/tree/master/src/floatingscroll
  * http://diapeira.1gb.ru/diapeira/jquery-plugins/floatingscroll.html
  *
  * Copyright (c) 2011-2012 Amphiluke
