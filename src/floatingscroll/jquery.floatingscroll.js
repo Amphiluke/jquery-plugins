@@ -1,5 +1,5 @@
 /*!
- * jQuery floatingscroll Plugin 1.0.1
+ * jQuery floatingscroll Plugin 1.1.2
  * supported by jQuery v1.3+
  *
  * https://github.com/Amphiluke/jquery-plugins/tree/master/src/floatingscroll
@@ -30,7 +30,7 @@
     function FScroll(cont) {
         var inst = this;
         inst.cont = { block: cont[0], left: 0, top: 0, bottom: 0, height: 0, width: 0 };
-        inst.sbar = this.initScroll();
+        inst.sbar = inst.initScroll();
         inst.resetBoundaries();
         inst.visible = true;
         inst.winScrollHandler(); // hide floating scrolls for containers which are out of sight
@@ -48,38 +48,36 @@
     };
 
     fProto.winScrollHandler = function () {
-        var maxVisibleY = getWorkHeight() + scrlEl.scrollTop,
-            mustHide = ((this.cont.bottom - maxVisibleY <= 0) || (this.cont.top - maxVisibleY > 0));
-        if (this.visible == mustHide) {
-            this.visible = !this.visible;
+        var inst = this,
+            maxVisibleY = getWorkHeight() + scrlEl.scrollTop,
+            mustHide = ((inst.cont.bottom - maxVisibleY <= 0) || (inst.cont.top - maxVisibleY > 0));
+        if (inst.visible == mustHide) {
+            inst.visible = !inst.visible;
             // we cannot simply hide a floating scroll bar since its scrollLeft property will not update in that case
-            this.sbar.toggleClass("fl-scrolls-hidden");
+            inst.sbar.toggleClass("fl-scrolls-hidden");
         }
     };
 
     fProto.sbarScrollHandler = function (sender) {
-        if (this.visible) {
-            this.cont.block.scrollLeft = sender.scrollLeft;
-        }
+        this.cont.block.scrollLeft = sender.scrollLeft;
     };
 
     fProto.contScrollHandler = function (sender) {
-        if (!this.visible) {
-            this.sbar[0].scrollLeft = sender.scrollLeft;
-        }
+        this.sbar[0].scrollLeft = sender.scrollLeft;
     };
 
     // trigger the "adjustScroll" event to call this method and recalculate scroll width and container boundaries
     fProto.resetBoundaries = function () {
-        var cont = $(this.cont.block),
+        var inst = this,
+            cont = $(inst.cont.block),
             pos = cont.offset();
-        this.cont.height = cont.outerHeight();
-        this.cont.width = cont.outerWidth();
-        this.cont.left = pos.left;
-        this.cont.top = pos.top;
-        this.cont.bottom = pos.top + this.cont.height;
-        this.sbar.width(this.cont.width).css("left", pos.left + "px");
-        $("div", this.sbar).width(cont[0].scrollWidth);
+        inst.cont.height = cont.outerHeight();
+        inst.cont.width = cont.outerWidth();
+        inst.cont.left = pos.left;
+        inst.cont.top = pos.top;
+        inst.cont.bottom = pos.top + inst.cont.height;
+        inst.sbar.width(inst.cont.width).css("left", pos.left + "px");
+        $("div", inst.sbar).width(cont[0].scrollWidth);
     };
 
     $.fn.attachScroll = function () {
