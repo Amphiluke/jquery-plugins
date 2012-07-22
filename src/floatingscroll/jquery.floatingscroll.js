@@ -13,7 +13,6 @@
  */
 ;(function ($) {
 
-    // jQuery v1.3 is the earliest jQuery version this plugin is supported by
     var fProto = FScroll.prototype,
         scrlEl = document.documentElement,
         getWorkHeight = function () { return scrlEl.clientHeight; };
