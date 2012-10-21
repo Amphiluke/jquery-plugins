@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8" />
+	<title>L-systems</title>
+	<link rel="stylesheet" href="ls-interface.css" type="text/css" />
+	<script src="ls.js"></script>
+	<script src="ls-collection.js"></script>
+	<script src="ls-interface.js"></script>
+</head>
+<body>
+
+<h1 class="page-title">ls — L-system plotter</h1>
+
+<form action="#" class="ls-form" autocomplete="off">
+	<div class="ls-control-panel">
+		<fieldset class="ls-collection">
+			<legend>Collections &#9650;</legend>
+			<p>
+				<select id="ls-collections" title="Collection name">
+					<option value="-">—</option>
+				</select>
+			</p>
+			<p>
+				<select id="ls-collection-list" size="5" multiple="multiple" title="Collection structure">
+					<option value="bush">Bush</option>
+					<option value="dragon">Dragon</option>
+				</select>
+			</p>
+			<fieldset class="ls-collection-mng collapsed-fieldset">
+				<legend>Manage collections &#9660;</legend>
+				<ul class="ls-collection-mng-list">
+					<li><input type="button" id="ls-collection-create" value="Create collection…" /></li>
+					<li><input type="button" id="ls-collection-delete" value="Delete collection" /></li>
+					<li><input type="button" id="ls-collection-store" value="Add to collection…" title="Add the currently plotted L-system to active collection" /></li>
+				</ul>
+			</fieldset>
+		</fieldset>
+		<fieldset class="ls-settings">
+			<legend>L-system parameters &#9650;</legend>
+			<dl class="ls-fields-list">
+				<dt><label for="ls-axiom">Ax</label></dt>
+				<dd><input type="text" id="ls-axiom" placeholder="Axiom" title="Axiom" /></dd>
+				<dd>
+					<fieldset class="ls-rules">
+						<legend>Production rules &#9650;</legend>
+						<ul class="ls-rules-list">
+							<li><label for="ls-rule-F" class="ls-rule-F">F</label><input type="text" id="ls-rule-F" /></li>
+							<li><label for="ls-rule-B" class="ls-rule-B">B</label><input type="text" id="ls-rule-B" /></li>
+							<li><label for="ls-rule-add" class="ls-rule-add">Add</label><input type="text" id="ls-rule-add" placeholder="Add a rule&hellip;" disabled="disabled" /></li>
+						</ul>
+					</fieldset>
+				</dd>
+				<dt><label for="ls-alpha"><var>&alpha;</var></label></dt>
+				<dd><input type="text" id="ls-alpha" placeholder="Initial angle &alpha;, &deg;" title="Initial angle &alpha;, &deg;" /></dd>
+				<dt><label for="ls-theta"><var>&theta;</var></label></dt>
+				<dd><input type="text" id="ls-theta" placeholder="Angle increment &theta;, &deg;" title="Angle increment &theta;, &deg;" /></dd>
+				<dt><label for="ls-step"><var>St</var></label></dt>
+				<dd><input type="text" id="ls-step" placeholder="Step" title="Step" /></dd>
+				<dt><label for="ls-iterCount"><var>N</var></label></dt>
+				<dd><input type="text" id="ls-iterCount" placeholder="Iteration count" title="Iteration count" /></dd>
+			</dl>
+			<p><input type="submit" value="Plot" accesskey="P" /></p>
+		</fieldset>
+	</div>
+	<div class="ls-plot-area"><canvas width="500" height="500" id="ls-canvas"></canvas></div>
+	<div class="ls-control-panel ls-control-panel-right">
+		<fieldset class="ls-plot-appearance">
+			<legend>Plot appearance &#9650;</legend>
+			<dl class="ls-fields-list">
+				<dt><label for="ls-color">FG</label></dt>
+				<dd><input type="text" id="ls-color" value="#080" placeholder="Line color" title="Line color" /></dd>
+				<dt><label for="ls-background">BG</label></dt>
+				<dd><input type="text" id="ls-background" value="#fff" placeholder="Background color" title="Background color" /></dd>
+			</dl>
+		</fieldset>
+		<fieldset class="ls-exporting">
+			<legend>Exporting and linking &#9650;</legend>
+			<p><input type="button" value="Export to PNG" id="ls-export" /></p>
+			<p>
+				<input type="button" value="Generate a link" id="ls-link-btn" />
+				<textarea id="ls-link-field" cols="18" rows="2" readonly="readonly"></textarea>
+			</p>
+		</fieldset>
+	</div>
+</form>
+
+</body>
+</html>
