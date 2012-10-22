@@ -97,7 +97,7 @@ collection = {
 	},
 
 	addLSystem: function () {
-		assert(this.current != "bundled", "Unable to add new L-systems the bundled collection");
+		assert(this.current != "bundled", "Unable to add new L-systems to the bundled collection");
 		var name = window.prompt("Specify a new L-system name", "");
 		if (!name) return;
 		assert(!this.bank[this.current].hasOwnProperty(name), "L-system with the same name already exists");
@@ -126,14 +126,7 @@ collection = {
 		var c = this,
 			setLS = function (e) {
 				if (e.type == "keyup" && e.keyCode != 13) return;
-				var lSystem = c.bank[c.current][this.value];
-				if (!lSystem) return;
-				lsElements.axiom.value = lSystem.axiom;
-				lsElements.alpha.value = lSystem.alpha;
-				lsElements.theta.value = lSystem.theta;
-				lsElements.step.value = lSystem.step;
-				lsElements.iterCount.value = lSystem.iterCount;
-				rules.fill(lSystem.rules);
+				form.fillParams(c.bank[c.current][this.value]);
 				if (e.ctrlKey) {
 					form.plotLSystem();
 				}
@@ -276,7 +269,7 @@ rules = {
 	addHandlers: function () {
 		var inst = this;
 		inst.createPopup();
-		// pass a "live" collection of LABEL element is the 2nd parameter, since the rules are added dynamically
+		// pass a "live" collection of LABEL elements in the 2nd parameter, since the rules are added dynamically
 		dom.on("click", lsElements.rulesList.getElementsByTagName("label"), function () {
 			switch (this.htmlFor) {
 				case "ls-rule-add":
@@ -315,6 +308,16 @@ form = {
 		};
 	},
 
+	fillParams: function (params) {
+		if (!params) return;
+		lsElements.axiom.value = params.axiom;
+		lsElements.alpha.value = params.alpha;
+		lsElements.theta.value = params.theta;
+		lsElements.step.value = params.step;
+		lsElements.iterCount.value = params.iterCount;
+		rules.fill(params.rules);
+	},
+
 	plotLSystem: function (params) {
 		var ctx = lsElements.canvas.getContext("2d");
 		ctx.strokeStyle = lsElements.colors.fg.value || "#080";
@@ -331,10 +334,15 @@ form = {
 	},
 
 	checkQuery: function () {
-		var queryParams = location.search.match(/[\?&]ls=(.+?)(?:$|&)/);
+		var queryParams = location.search.match(/[\?&]ls=(.+?)(?:$|&)/),
+			params;
 		if (queryParams) {
 			try {
-				this.plotLSystem(JSON.parse(decodeURIComponent(queryParams[1])));
+				params = JSON.parse(decodeURIComponent(queryParams[1]));
+				this.fillParams(params);
+				params.alpha *= DEG2RAD;
+				params.theta *= DEG2RAD;
+				this.plotLSystem(params);
 			} catch (e) { /* do nothing */ }
 		}
 	},
@@ -362,7 +370,7 @@ form = {
 			doc.close();
 		});
 		dom.on("click", "#ls-link-btn", function () {
-			var params = JSON.stringify(f.collectParams()),
+			var params = JSON.stringify(f.collectParams(true)),
 				field = dom.$("#ls-link-field");
 			field.value = location.protocol + "//" + location.hostname + location.pathname +
 				"?ls=" + encodeURIComponent(params);
