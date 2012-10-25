@@ -348,12 +348,8 @@ form = {
 	},
 
 	addPanelHandlers: function () {
-		var arrow = {};
-		arrow[true.toString()] = "\u25b2";
-		arrow[false.toString()] = "\u25bc";
 		dom.on("click", "legend", function () {
-			var collapsed = this.parentNode.classList.toggle("collapsed-fieldset");
-			this.textContent = this.textContent.replace(arrow[collapsed], arrow[!collapsed]);
+			this.parentNode.classList.toggle("collapsed-fieldset");
 		}, ".ls-form");
 	},
 

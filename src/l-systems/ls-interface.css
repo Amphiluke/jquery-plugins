@@ -37,6 +37,9 @@ input[type="text"], select {
 	cursor:pointer;
 	text-decoration:underline;
 }
+.ls-control-panel legend:after {
+	content:" ▲";
+}
 .ls-control-panel legend:hover {
 	text-decoration:none;
 }
@@ -156,4 +159,7 @@ fieldset.collapsed-fieldset * {
 }
 fieldset.collapsed-fieldset > legend {
 	display:block;
+}
+fieldset.collapsed-fieldset > legend:after {
+	content:" ▼";
 }
