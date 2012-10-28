@@ -7,7 +7,8 @@ var DEG2RAD = Math.PI / 180,
 		if (!expression) {
 			throw new Error(message);
 		}
-	};
+	},
+	indexOf = Array.prototype.indexOf;
 
 var dom = {
 	frag: document.createDocumentFragment(),
@@ -31,7 +32,7 @@ var dom = {
 				element = this.findAll(element, delegatee);
 			}
 			delegatee.addEventListener(type, function (e) {
-				if (Array.prototype.indexOf.call(element, e.target) !== -1) {
+				if (indexOf.call(element, e.target) !== -1) {
 					listener.apply(e.target, arguments);
 				}
 			}, false);
@@ -44,7 +45,7 @@ var dom = {
 	}
 },
 
-lsElements = {
+lsUI = {
 	cacheElements: function () {
 		var $ = dom.$;
 		this.axiom = $("#ls-axiom");
@@ -81,19 +82,16 @@ collection = {
 	},
 
 	listCollections: function (active) {
-		lsElements.collections.innerHTML = Object.keys(this.bank).reduce(function (html, name) {
-			var selected = (name == active) ? " selected='selected'" : "";
-			return html + "<option" + selected + ">" + name + "</option>";
-		}, "");
+		var select = lsUI.collections;
+		form.fillSelect(select, Object.keys(this.bank));
+		select.selectedIndex = indexOf.call(select.options, select.querySelector("option[value='" + active + "']"));
 		this.listLSystems();
 	},
 
 	listLSystems: function () {
-		var name = this.current = lsElements.collections.value;
-		lsElements.collectionButtons.del.disabled = lsElements.collectionButtons.store.disabled = (name == "bundled");
-		lsElements.collectionList.innerHTML = Object.keys(this.bank[name]).reduce(function (html, name) {
-			return html + "<option>" + name + "</option>";
-		}, "");
+		var name = this.current = lsUI.collections.value;
+		lsUI.collectionButtons.del.disabled = lsUI.collectionButtons.store.disabled = (name == "bundled");
+		form.fillSelect(lsUI.collectionList, Object.keys(this.bank[name]));
 	},
 
 	addLSystem: function () {
@@ -131,12 +129,12 @@ collection = {
 					form.plotLSystem();
 				}
 			};
-		dom.on("dblclick", lsElements.collectionList, setLS);
-		dom.on("keyup", lsElements.collectionList, setLS);
-		dom.on("change", lsElements.collections, function () { c.listLSystems(); });
-		dom.on("click", lsElements.collectionButtons.create, function () { c.create(); });
-		dom.on("click", lsElements.collectionButtons.del, function () { c.del(); });
-		dom.on("click", lsElements.collectionButtons.store, function () { c.addLSystem(); });
+		dom.on("dblclick", lsUI.collectionList, setLS);
+		dom.on("keyup", lsUI.collectionList, setLS);
+		dom.on("change", lsUI.collections, function () { c.listLSystems(); });
+		dom.on("click", lsUI.collectionButtons.create, function () { c.create(); });
+		dom.on("click", lsUI.collectionButtons.del, function () { c.del(); });
+		dom.on("click", lsUI.collectionButtons.store, function () { c.addLSystem(); });
 	}
 },
 
@@ -213,54 +211,54 @@ rules = {
 		if (this.letters.length < 1) return;
 		letter = this.letters.get(letter);
 		if (!letter) return;
-		var lis = dom.findAll("li", lsElements.rulesList),
+		var lis = dom.findAll("li", lsUI.rulesList),
 			li = dom.frag.appendChild(lis[lis.length - 2].cloneNode(true)),
 			label = dom.find("label", li),
-			input = lsElements.rules[letter] = dom.find("input", li);
+			input = lsUI.rules[letter] = dom.find("input", li);
 		label.textContent = letter;
 		label.className = label.htmlFor = input.id = "ls-rule-" + letter;
 		this.setDisabled(letter, true);
 		input.value = "";
-		lsElements.rulesList.insertBefore(dom.frag, lis[lis.length - 1]);
+		lsUI.rulesList.insertBefore(dom.frag, lis[lis.length - 1]);
 	},
 
 	replace: function (from, to) {
 		this.letters.swap(from, to);
-		lsElements.rules[to] = lsElements.rules[from];
-		delete lsElements.rules[from];
+		lsUI.rules[to] = lsUI.rules[from];
+		delete lsUI.rules[from];
 		this.popupOwner.textContent = to;
-		this.popupOwner.className = this.popupOwner.htmlFor = lsElements.rules[to].id = "ls-rule-" + to;
+		this.popupOwner.className = this.popupOwner.htmlFor = lsUI.rules[to].id = "ls-rule-" + to;
 		this.setDisabled(to, true);
 		this.setDisabled(from, false);
 	},
 
 	del: function (letter) {
-		var target = lsElements.rules[letter];
+		var target = lsUI.rules[letter];
 		if (!target || /[FB]/.test(letter)) return;
 		this.letters.put(letter);
 		target.parentNode.parentNode.removeChild(target.parentNode);
-		delete lsElements.rules[letter];
+		delete lsUI.rules[letter];
 		this.setDisabled(letter, false);
 	},
 
 	fill: function (data) {
-		lsElements.rules.F.value = lsElements.rules.B.value = "";
-		Object.keys(lsElements.rules).forEach(function (letter) {
+		lsUI.rules.F.value = lsUI.rules.B.value = "";
+		Object.keys(lsUI.rules).forEach(function (letter) {
 			if (!data.hasOwnProperty(letter)) {
 				this.del(letter);
 			}
 		}, this);
 		Object.keys(data).forEach(function (letter) {
 			this.add(letter);
-			lsElements.rules[letter].value = data[letter];
+			lsUI.rules[letter].value = data[letter];
 		}, this);
 	},
 
 	build: function () {
 		var result = {};
-		Object.keys(lsElements.rules).forEach(function (letter) {
-			if (lsElements.rules[letter].value) {
-				result[letter] = lsElements.rules[letter].value;
+		Object.keys(lsUI.rules).forEach(function (letter) {
+			if (lsUI.rules[letter].value) {
+				result[letter] = lsUI.rules[letter].value;
 			}
 		});
 		return result;
@@ -270,7 +268,7 @@ rules = {
 		var inst = this;
 		inst.createPopup();
 		// pass a "live" collection of LABEL elements in the 2nd parameter, since the rules are added dynamically
-		dom.on("click", lsElements.rulesList.getElementsByTagName("label"), function () {
+		dom.on("click", lsUI.rulesList.getElementsByTagName("label"), function () {
 			switch (this.htmlFor) {
 				case "ls-rule-add":
 					inst.add();
@@ -282,7 +280,7 @@ rules = {
 					inst.showPopup(this);
 					break;
 			}
-		}, lsElements.rulesList);
+		}, lsUI.rulesList);
 		dom.on("click", "li", function () {
 			if (!inst.popupOwner) return;
 			if (this.className == "ls-rule-del") {
@@ -296,33 +294,43 @@ rules = {
 },
 
 form = {
+	fillSelect: function (select, options) {
+		var frag = dom.frag, option;
+		options.forEach(function (name) {
+			option = frag.appendChild(document.createElement("option"));
+			option.text = option.value = name;
+		});
+		select.options.length = 0;
+		select.appendChild(frag);
+	},
+
 	collectParams: function (inDeg) {
 		var factor = (inDeg) ? 1 : DEG2RAD;
 		return {
-			axiom: lsElements.axiom.value,
-			alpha: lsElements.alpha.value * factor,
-			theta: lsElements.theta.value * factor,
-			iterCount: +lsElements.iterCount.value,
-			step: +lsElements.step.value,
+			axiom: lsUI.axiom.value,
+			alpha: lsUI.alpha.value * factor,
+			theta: lsUI.theta.value * factor,
+			iterCount: +lsUI.iterCount.value,
+			step: +lsUI.step.value,
 			rules: rules.build()
 		};
 	},
 
 	fillParams: function (params) {
 		if (!params) return;
-		lsElements.axiom.value = params.axiom;
-		lsElements.alpha.value = params.alpha;
-		lsElements.theta.value = params.theta;
-		lsElements.step.value = params.step;
-		lsElements.iterCount.value = params.iterCount;
+		lsUI.axiom.value = params.axiom;
+		lsUI.alpha.value = params.alpha;
+		lsUI.theta.value = params.theta;
+		lsUI.step.value = params.step;
+		lsUI.iterCount.value = params.iterCount;
 		rules.fill(params.rules);
 	},
 
 	plotLSystem: function (params) {
-		var ctx = lsElements.canvas.getContext("2d");
-		ctx.strokeStyle = lsElements.colors.fg.value || "#080";
-		ctx.fillStyle = lsElements.colors.bg.value || "#fff";
-		ls.init(params || this.collectParams()).draw(lsElements.canvas, true);
+		var ctx = lsUI.canvas.getContext("2d");
+		ctx.strokeStyle = lsUI.colors.fg.value || "#080";
+		ctx.fillStyle = lsUI.colors.bg.value || "#fff";
+		ls.init(params || this.collectParams()).draw(lsUI.canvas, true);
 	},
 
 	addPlotHandler: function () {
@@ -361,7 +369,7 @@ form = {
 			doc.open();
 			doc.write(
 				"<!DOCTYPE html><html><head><meta charset='UTF-8'/><title>L-system</title></head><body>" +
-				"<img width='500' height='500' alt='' src='" + lsElements.canvas.toDataURL() + "'/></body></html>"
+				"<img width='500' height='500' alt='' src='" + lsUI.canvas.toDataURL() + "'/></body></html>"
 			);
 			doc.close();
 		});
@@ -385,7 +393,7 @@ form = {
 };
 
 function initLSInterface() {
-	lsElements.cacheElements();
+	lsUI.cacheElements();
 	collection.init();
 	form.addHandlers();
 	rules.addHandlers();
