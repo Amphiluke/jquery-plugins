@@ -1,3 +1,15 @@
+/*!
+ * L-system plotter
+ * ls-interface.js (user interface)
+ *
+ * https://github.com/Amphiluke/jquery-plugins/blob/master/src/l-systems/ls-interface.js
+ *
+ * Copyright (c) 2012 Amphiluke
+ *
+ * Dual licensed under the MIT and GPL licenses:
+ *   http://www.opensource.org/licenses/mit-license.php
+ *   http://www.gnu.org/licenses/gpl.html
+ */
 (function () {
 
 "use strict";
