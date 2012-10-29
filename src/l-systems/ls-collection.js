@@ -782,6 +782,30 @@ storedCollections.bundled = {
 	theta: 30,
 	iterCount: 5,
 	step: 7
+},
+
+"snowflake2": {
+	axiom: "F[X]F++F[X]F++F[X]F++F[X]F",
+	rules: {
+		X: "[+Y][-Y][++Y][--Y]",
+		Y: "YF[X]YF"
+	},
+	alpha: 0,
+	theta: 45,
+	iterCount: 9,
+	step: 0.9
+},
+
+"wheel": {
+	axiom: "F[X]+F[X]+F[X]+F[X]+F[X]+F[X]+F[X]+F[X]+F[X]+F[X]+F[X]+F[X]+F[X]+F[X]+F[X]+F[X]+F[X]+F[X]+F[X]+F[X]+F[X]+F[X]+F[X]+F[X]+F[X]+F[X]+F[X]+F[X]+F[X]+F[X]+F[X]+F[X]+F[X]+F[X]+F[X]+F[X]+F[X]+F[X]+F[X]+F[X]+F[X]+F[X]+F[X]+F[X]+F[X]+F[X]+F[X]+F[X]+F[X]+F[X]+F[X]+F[X]+F[X]+F[X]+F[X]+F[X]+F[X]+F[X]+F[X]+F[X]+F[X]+F[X]+F[X]+F[X]+F[X]+F[X]+F[X]+F[X]+F[X]+F[X]+F[X]+F[X]",
+	rules: {
+		X: "[+++++++++++++Y[X]]-------------Y[X]",
+		Y: "YFYF"
+	},
+	alpha: 0,
+	theta: 5,
+	iterCount: 7,
+	step: 2
 }
 
 };
