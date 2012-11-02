@@ -1,3 +1,18 @@
+/**
+ * L-system authors & references:
+ *
+ * [AH] Anthony Hanmer
+ * [AK] A.V. Kalmykov
+ * [AM] Adrian Mariano
+ * [HS] Herb Savage
+ * [GT] Gary Teachout
+ * [KP] Ken Philip
+ * [MR] Michael A. Rouse
+ * [PB] Paul Bourke
+ * [PP] from P. Prusinkiewicz & J. Hanan, 1989
+ * [SE] SirEdvin
+ * [WM] William McWorter
+ */
 (function () {
 
 "use strict";
@@ -28,7 +43,7 @@ storedCollections.bundled = {
 	step: 9
 },
 
-"sprig": {
+"sticks": {
 	axiom: "X",
 	rules: {
 		F: "FF",
@@ -75,7 +90,7 @@ storedCollections.bundled = {
 	step: 3.5
 },
 
-"savine 1": {
+"savine 1": { // [AK]
 	axiom: "F-F[-F+F-F]+[+F-F-F]",
 	rules: {
 		F: "-F[-F+F-F]+[+F-F-F]-F[-F+F-F]+[+F-F-F]-F[-F+F-F]+[+F-F-F]"
@@ -86,7 +101,7 @@ storedCollections.bundled = {
 	step: 3
 },
 
-"savine 2": {
+"savine 2": { // [AK]
 	axiom: "-[F-F[-F+F-F]+[+F-F-F]]+[F-F[-F+F-F]+[+F-F-F]]",
 	rules: {
 		F: "-F[-F+F-F]+[+F-F-F]-F[-F+F-F]+[+F-F-F]-F[-F+F-F]+[+F-F-F]"
@@ -97,7 +112,7 @@ storedCollections.bundled = {
 	step: 3
 },
 
-"liana sarment": {
+"liana sarment": { // [AK]
 	axiom: "FYX",
 	rules: {
 		F: "FFFXYFXY-[FFFXYFXY]",
@@ -110,7 +125,7 @@ storedCollections.bundled = {
 	step: 0.5
 },
 
-"liana tangle": {
+"liana tangle": { // [AK]
 	axiom: "FYX",
 	rules: {
 		F: "FFFXYFXY-[FFFXYFXY]",
@@ -134,7 +149,7 @@ storedCollections.bundled = {
 	step: 15
 },
 
-"urchin": {
+"urchin": { // [AK]
 	axiom: "F",
 	rules: {
 		F: "F[-F+F-F]+[+F-F-F]"
@@ -266,7 +281,7 @@ storedCollections.bundled = {
 	step: 8
 },
 
-"Сеsаrо 1": {
+"Сеsаrо 1": { // [AH]
 	axiom: "F",
 	rules: {
 		F: "F++++++++++F--------------------F++++++++++F"
@@ -277,7 +292,7 @@ storedCollections.bundled = {
 	step: 2.9
 },
 
-"Сеsаrо 2": {
+"Сеsаrо 2": { // [AH]
 	axiom: "F+++++++++F------------------F+++++++++F------------------F+++++++++F------------------F+++++++++F------------------F",
 	rules: {
 		F: "F++++++++F----------------F++++++++F"
@@ -390,7 +405,7 @@ storedCollections.bundled = {
 	step: 4
 },
 
-"pentigree": {
+"pentigree": { // [WM]
 	axiom: "F-F-F-F-F",
 	rules: {
 		F: "F-F++F+F-F-F"
@@ -412,8 +427,8 @@ storedCollections.bundled = {
 	step: 5
 },
 
-"L-system": {
-	axiom: "X-X-X-X-X-X-X-X",
+"fluffy globule": {
+	axiom: "X-X-X-X-X-X-X-X-X",
 	rules: {
 		X: "FX+X--X+X--X+X--X+X"
 	},
@@ -423,18 +438,18 @@ storedCollections.bundled = {
 	step: 18
 },
 
-"horizons": {
+"horizons": { // [AH]
 	axiom: "+F++++F",
 	rules: {
 		F: "F+F+F++++F+F+F"
 	},
-	alpha: 320.5,
-	theta: 40,
-	iterCount: 3,
-	step: 20
+	alpha: 0,
+	theta: 45,
+	iterCount: 5,
+	step: 1.3
 },
 
-"napkin": {
+"napkin": { // [AM]
 	axiom: "F--F--F--F--F--F",
 	rules: {
 		F: "-F[--F--F]++F--F+"
@@ -445,7 +460,7 @@ storedCollections.bundled = {
 	step: 4.5
 },
 
-"frame": {
+"frame": { // [WM]
 	axiom: "YXY-YXY-YXY-YXY",
 	rules: {
 		X: "FX+FX+FXFYFX+FXFY-FY-FY-",
@@ -457,7 +472,7 @@ storedCollections.bundled = {
 	step: 4
 },
 
-"Moore's curl": {
+"Moore's curl": { // [WM]
 	axiom: "X",
 	rules: {
 		X: "FX+FX+FXFYFX+FXFY-FY-FY-",
@@ -491,7 +506,7 @@ storedCollections.bundled = {
 	step: 1.8
 },
 
-"spiral mosaic": {
+"spiral tiling": { // [PP]
 	axiom: "AAAA",
 	rules: {
 		F: "F",
@@ -505,7 +520,7 @@ storedCollections.bundled = {
 	step: 10
 },
 
-"Krishna's ankle bangle": {
+"anklets of Krishna": { // [PP]
 	axiom: "-X--X",
 	rules: {
 		F: "F",
@@ -517,7 +532,7 @@ storedCollections.bundled = {
 	step: 10
 },
 
-"mango-tree foliage": {
+"mango-tree foliage": { // [PP]
 	axiom: "A---A",
 	rules: {
 		F: "F",
@@ -531,7 +546,7 @@ storedCollections.bundled = {
 	step: 15
 },
 
-"Pentive": {
+"pentive": { // [WM]
 	axiom: "Q",
 	rules: {
 		P: "--FR++++FS--FU",
@@ -547,7 +562,7 @@ storedCollections.bundled = {
 	step: 15
 },
 
-"Sierpinski median curve": {
+"Sierpinski median curve": { // [WM]
 	axiom: "L--F--L--F",
 	rules: {
 		F: "F",
@@ -560,7 +575,7 @@ storedCollections.bundled = {
 	step: 5
 },
 
-"lace": {
+"lace": { // [WM]
 	axiom: "W",
 	rules: {
 		F: "F",
@@ -575,7 +590,7 @@ storedCollections.bundled = {
 	step: 4.5
 },
 
-"bush 3": {
+"bush 3": { // [PB]
 	axiom: "VZFFF",
 	rules: {
 		F: "F",
@@ -591,7 +606,7 @@ storedCollections.bundled = {
 	step: 10
 },
 
-"algae": {
+"algae": { // [PB]
 	axiom: "AF",
 	rules: {
 		A: "FFFFFV[+++H][---Q]BW",
@@ -624,7 +639,7 @@ storedCollections.bundled = {
 	step: 2
 },
 
-"algae 2": {
+"algae 2": { // [PB]
 	axiom: "AF",
 	rules: {
 		A: "FFFFFY[++++N][----T]BZ",
@@ -660,7 +675,7 @@ storedCollections.bundled = {
 	step: 2
 },
 
-"Penrose mosaic": {
+"Penrose mosaic": { // [HS]
 	axiom: "+WF--XF---YF--ZF",
 	rules: {
 		W: "YF++ZF----XF[-YF----WF]++",
@@ -674,22 +689,7 @@ storedCollections.bundled = {
 	step: 11
 },
 
-"hexagonal star": {
-	axiom: "S",
-	rules: {
-		Y: "+",
-		Z: "-",
-		R: "Z++L-FR-F+R--FR--F+LF++LFYR",
-		L: "LZFR--FR-F++LF++L-F+LF+R--Y",
-		S: "L"
-	},
-	alpha: 0,
-	theta: 60,
-	iterCount: 5,
-	step: 12
-},
-
-"Penrose tesselation": {
+"Penrose tesselation": { // [HS]
 	axiom: "[X]++[X]++[X]++[X]++[X]",
 	rules: {
 		W: "YF++ZF----XF[-YF----WF]++",
@@ -718,7 +718,7 @@ storedCollections.bundled = {
 	step: 1.2
 },
 
-"plant 5": {
+"plant 5": { // [KP]
 	axiom: "----G",
 	rules: {
 		F: "F",
@@ -772,7 +772,7 @@ storedCollections.bundled = {
 	step: 4.5
 },
 
-"Bonsai sprig": {
+"bonsai branch": {
 	axiom: "A",
 	rules: {
 		F: "F",
@@ -784,7 +784,7 @@ storedCollections.bundled = {
 	step: 7
 },
 
-"snowflake2": {
+"snowflake 2": { // [SE]
 	axiom: "F[X]F++F[X]F++F[X]F++F[X]F",
 	rules: {
 		X: "[+Y][-Y][++Y][--Y]",
@@ -796,7 +796,7 @@ storedCollections.bundled = {
 	step: 0.9
 },
 
-"wheel": {
+"wheel": { // [SE]
 	axiom: "F[X]+F[X]+F[X]+F[X]+F[X]+F[X]+F[X]+F[X]+F[X]+F[X]+F[X]+F[X]+F[X]+F[X]+F[X]+F[X]+F[X]+F[X]+F[X]+F[X]+F[X]+F[X]+F[X]+F[X]+F[X]+F[X]+F[X]+F[X]+F[X]+F[X]+F[X]+F[X]+F[X]+F[X]+F[X]+F[X]+F[X]+F[X]+F[X]+F[X]+F[X]+F[X]+F[X]+F[X]+F[X]+F[X]+F[X]+F[X]+F[X]+F[X]+F[X]+F[X]+F[X]+F[X]+F[X]+F[X]+F[X]+F[X]+F[X]+F[X]+F[X]+F[X]+F[X]+F[X]+F[X]+F[X]+F[X]+F[X]+F[X]+F[X]+F[X]+F[X]",
 	rules: {
 		X: "[+++++++++++++Y[X]]-------------Y[X]",
@@ -806,6 +806,57 @@ storedCollections.bundled = {
 	theta: 5,
 	iterCount: 7,
 	step: 2
+},
+
+"hexagonal star": { // [MR]
+	axiom: "S",
+	rules: {
+		L: "LZFR--FR-F++LF++L-F+LF+R--Y",
+		R: "Z++L-FR-F+R--FR--F+LF++LFYR",
+		S: "L",
+		Y: "+",
+		Z: "-"
+	},
+	alpha: 0,
+	theta: 60,
+	iterCount: 6,
+	step: 4.75
+},
+
+"HexGasket": { // [MR]
+	axiom: "F+F+F+F+F+F--",
+	rules: {
+		F: "F+F+F--F--F+F+F"
+	},
+	alpha: 0,
+	theta: 60,
+	iterCount: 4,
+	step: 3
+},
+
+"Peano-c": { // [GT]
+	axiom: "+Z",
+	rules: {
+		X: "FX-FY-FX+FY+FX+FY+FX+FY+FX-FY-FX-FY-FX-FY-FX+FY+FX",
+		Y: "FY",
+		Z: "FX"
+	},
+	alpha: 0,
+	theta: 45,
+	iterCount: 5,
+	step: 3.5
+},
+
+"Hex-7-b": { // [GT]
+	axiom: "FX",
+	rules: {
+		X: "-F++F-X-F--F+Y---F--F+Y+F++F-X+++F++F-X-F++F-X+++F--F+Y--",
+		Y: "+F++F-X-F--F+Y+F--F+Y---F--F+Y---F++F-X+++F++F-X+++F--F+Y"
+	},
+	alpha: 0,
+	theta: 30,
+	iterCount: 4,
+	step: 5
 }
 
 };
