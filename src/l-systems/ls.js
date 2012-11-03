@@ -1,5 +1,5 @@
 /*!
- * L-system plotter
+ * L-system manager
  * ls.js (core and base logic implementation)
  *
  * https://github.com/Amphiluke/jquery-plugins/blob/master/src/l-systems/ls.js
@@ -16,7 +16,7 @@ var ls = (function () {
 
 var axiom = "",
 	rules = Object.create(Object.prototype, {
-		// define non-configurable properties for a L-system code control characters
+		// define non-configurable properties for an L-system code control characters
 		// (used internally in genLSCode() routine)
 		"+": { value: "+" },
 		"-": { value: "-" },
