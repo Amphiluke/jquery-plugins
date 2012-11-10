@@ -341,8 +341,8 @@ form = {
 	plotLSystem: function (params) {
 		var ctx = lsUI.canvas.getContext("2d");
 		ctx.strokeStyle = lsUI.colors.fg.value || "#080";
-		ctx.fillStyle = lsUI.colors.bg.value || "#fff";
-		ls.init(params || this.collectParams()).draw(lsUI.canvas, true);
+		ctx.fillStyle = form.pattern || lsUI.colors.bg.value || "#fff";
+		ls.init(params || this.collectParams()).draw(lsUI.canvas);
 	},
 
 	addPlotHandler: function () {
@@ -373,6 +373,23 @@ form = {
 		}, ".ls-form");
 	},
 
+	addPatternHandler: function () {
+		var img, ctx, url = window.URL || window.webkitURL || window;
+		if (!url.createObjectURL || !url.revokeObjectURL) {
+			dom.$("#ls-pattern").disabled = true;
+			return;
+		}
+		img = document.createElement("img");
+		ctx = lsUI.canvas.getContext("2d");
+		dom.on("load", img, function () {
+			form.pattern = ctx.createPattern(img, "repeat");
+			url.revokeObjectURL(this.src);
+		});
+		dom.on("change", "#ls-pattern", function () {
+			img.src = url.createObjectURL(this.files[0]);
+		});
+	},
+
 	addExportHandler: function () {
 		var f = this;
 		dom.on("click", "#ls-export", function () {
@@ -399,6 +416,7 @@ form = {
 		var f = this;
 		f.addPlotHandler();
 		f.addPanelHandlers();
+		f.addPatternHandler();
 		f.addExportHandler();
 		dom.on("load", window, function () { f.checkQuery(); });
 	}

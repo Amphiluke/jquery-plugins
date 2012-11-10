@@ -148,7 +148,7 @@ function genLSCode() {
 	return code;
 }
 
-function draw(canvas, clear) {
+function draw(canvas) {
 	var c = canvas.getContext("2d"),
 		code = genLSCode(),
 		len = code.length,
@@ -218,9 +218,8 @@ function draw(canvas, clear) {
 	stack.length = 0; // clear stack JIC
 
 	// draw per se
-	if (clear) {
-		c.fillRect(0, 0, canvas.width, canvas.height);
-	}
+	c.clearRect(0, 0, canvas.width, canvas.height);
+	c.fillRect(0, 0, canvas.width, canvas.height);
 	c.beginPath();
 	c.moveTo(pos.x, pos.y);
 	run(act);
