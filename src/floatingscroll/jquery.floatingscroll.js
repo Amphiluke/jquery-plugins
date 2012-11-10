@@ -13,17 +13,10 @@
  */
 ;(function ($) {
 
-    var scrlEl = document.documentElement,
-        getWorkHeight = function () { return scrlEl.clientHeight; };
-    (function () {
-        // jQuery v1.3 is the earliest jQuery version this plugin is supported by
-        var webkit = ($.fn.jquery >= "1.4") ? $.browser.webkit : /(webkit)[ \/]([\w.]+)/i.exec(navigator.userAgent);
-        if (webkit) {
-            // WebKit browsers do not update the scrollTop property on documentElement object, so use body instead
-            $(document).ready(function () { scrlEl = document.body; });
-            getWorkHeight = function () { return window.innerHeight; };
-        }
-    })();
+    var se = /*@cc_on (@_jscript_version < 9) ? document.documentElement : @*/ window,
+        getMaxVisibleY = function () {
+            return /*@cc_on (@_jscript_version < 9) ? se.scrollTop + se.clientHeight : @*/ se.pageYOffset + se.innerHeight;
+        };
 
     function FScroll(cont) {
         var inst = this;
@@ -49,8 +42,9 @@
 
         winScrollHandler: function () {
             var inst = this,
-                maxVisibleY = getWorkHeight() + scrlEl.scrollTop,
-                mustHide = ((inst.cont.bottom - maxVisibleY <= 0) || (inst.cont.top - maxVisibleY > 0));
+                cont = inst.cont,
+                maxVisibleY = getMaxVisibleY(),
+                mustHide = ((cont.bottom <= maxVisibleY) || (cont.top > maxVisibleY));
             if (inst.visible == mustHide) {
                 inst.visible = !inst.visible;
                 // we cannot simply hide a floating scroll bar since its scrollLeft property will not update in that case
@@ -69,15 +63,16 @@
         // trigger the "adjustScroll" event to call this method and recalculate scroll width and container boundaries
         resetBoundaries: function () {
             var inst = this,
-                cont = $(inst.cont.block),
-                pos = cont.offset();
-            inst.cont.height = cont.outerHeight();
-            inst.cont.width = cont.outerWidth();
-            inst.cont.left = pos.left;
-            inst.cont.top = pos.top;
-            inst.cont.bottom = pos.top + inst.cont.height;
-            inst.sbar.width(inst.cont.width).css("left", pos.left + "px");
-            $("div", inst.sbar).width(cont[0].scrollWidth);
+                cont = inst.cont,
+                block = $(cont.block),
+                pos = block.offset();
+            cont.height = block.outerHeight();
+            cont.width = block.outerWidth();
+            cont.left = pos.left;
+            cont.top = pos.top;
+            cont.bottom = pos.top + cont.height;
+            inst.sbar.width(cont.width).css("left", pos.left + "px");
+            $("div", inst.sbar).width(block[0].scrollWidth);
         }
 
     });
