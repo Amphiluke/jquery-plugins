@@ -5,7 +5,7 @@
  * https://github.com/Amphiluke/jquery-plugins/tree/master/src/floatingscroll
  * http://diapeira.1gb.ru/diapeira/jquery-plugins/floatingscroll.html
  *
- * Copyright (c) 2011-2012 Amphiluke
+ * Copyright (c) 2011-2013 Amphiluke
  *
  * Dual licensed under the MIT and GPL licenses:
  *   http://www.opensource.org/licenses/mit-license.php
