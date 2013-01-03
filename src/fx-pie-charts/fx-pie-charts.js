@@ -3,6 +3,7 @@
  * JavaScript module for pie charts plotting
  *
  * https://github.com/Amphiluke/jquery-plugins/tree/master/src/fx-pie-charts
+ * http://diapeira.1gb.ru/diapeira/pure-js/fx-pie-charts.html
  *
  * The script may work both as a standalone module and as a jQuery plugin. It automatically detects whether
  * jQuery is available and registers the "fxPieChart" method either in $.fn or in global namespace.
