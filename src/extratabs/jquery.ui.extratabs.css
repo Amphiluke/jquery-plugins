@@ -1,0 +1,147 @@
+.ui-extratabs {
+	position:relative;
+}
+
+/* Thumbnail styles */
+
+.ui-extratabs-thumb-frame {
+	background:#fff;
+	border:1px solid #ddd;
+	-webkit-border-radius:5px;
+	-moz-border-radius:5px;
+	border-radius:5px;
+	-webkit-box-shadow:0 2px 7px 0 #555;
+	-moz-box-shadow:0 2px 7px 0 #555;
+	box-shadow:0 2px 7px 0 #555;
+	height:150px;
+	left:-9999px;
+	margin-top:2px;
+	padding:10px;
+	position:absolute;
+	top:-9999px;
+	-webkit-user-select:none;
+	-khtml-user-select:none;
+	-moz-user-select:none;
+	-ms-user-select:none;
+	-o-user-select:none;
+	user-select:none;
+	width:250px;
+	z-index:20;
+}
+.ui-extratabs-thumb-clip {
+	height:100%;
+	margin:0;
+	overflow:hidden;
+	padding:0;
+	width:100%;
+}
+.ui-extratabs-thumb-arrow {
+	background:#fff;
+	border-top:1px solid #ddd;
+	border-left:1px solid #ddd;
+	display:block;
+	font-size:0;
+	height:10px;
+	left:50%;
+	line-height:0;
+	margin-left:-5px;
+	margin-top:-6px;
+	position:absolute;
+	top:0;
+	-webkit-transform:rotate(45deg);
+	-moz-transform:rotate(45deg);
+	-o-transform:rotate(45deg);
+	-ms-transform:rotate(45deg);
+	transform:rotate(45deg);
+	width:10px;
+}
+.ui-extratabs-thumb-frame-ie .ui-extratabs-thumb-arrow { /* IE lt 9 */
+	/**
+	 * IMPORTANT: preserve white spaces between matrix property values (and restore them after compression)
+	 * to keep the rest of the CSS from ignoring by the browser. See the following link for details
+	 * http://stackoverflow.com/questions/11785510/are-matrix-filters-white-space-sensitive-on-ie7/
+	 */
+	-ms-filter:"progid:DXImageTransform.Microsoft.Matrix(M11=0.7071, M12=-0.7071, M21=0.7071, M22=0.7071, SizingMethod='auto expand')";
+	filter:progid:DXImageTransform.Microsoft.Matrix(M11="0.7071", M12="-0.7071", M21="0.7071", M22="0.7071", FilterType="nearest neighbor", SizingMethod="auto expand");
+}
+.ui-extratabs-thumb-box {
+	overflow:hidden;
+}
+.ui-extratabs-thumb-box:hover {
+	background:#f5f5f5;
+	cursor:pointer;
+}
+
+/* Tab scroll styles */
+
+.ui-extratabs-nav-wrapper {
+	margin:0;
+	overflow:hidden;
+	padding:0;
+	position:relative;
+	width:99%;
+}
+.ui-extratabs-scroll-btns {
+	background:#ccc url("images/ui-bg_highlight-soft_75_cccccc_1x100.png") 50% 50% repeat-x;
+	border:1px solid #aaa;
+	border-left:none;
+	display:none;
+	margin:0;
+	padding:0.6em 0.5em 0.5em;
+	position:absolute;
+	right:0.2em;
+	top:0.2em;
+	z-index:5;
+}
+.ui-extratabs-scroll-btns li {
+	cursor:pointer;
+	float:left;
+	list-style:none;
+	margin:0 0 0 2px;
+	padding:4px 0;
+}
+.ui-extratabs-scroll-btns li span {
+	float:left;
+	margin:0 4px;
+}
+
+/* Multiline tabs styles */
+
+.ui-extratabs .ui-extratabs-multiline {
+	padding-top:0.3em;
+}
+.ui-extratabs .ui-extratabs-multiline li {
+	margin:-0.1em 0 0;
+}
+.ui-extratabs-row-0 { z-index:10; }
+.ui-extratabs-row-1 { z-index:9; }
+.ui-extratabs-row-2 { z-index:8; }
+.ui-extratabs-row-3 { z-index:7; }
+.ui-extratabs-row-4 { z-index:6; }
+.ui-extratabs-row-5 { z-index:5; }
+.ui-extratabs-row-6 { z-index:4; }
+.ui-extratabs-row-7 { z-index:3; }
+.ui-extratabs-row-8 { z-index:2; }
+.ui-extratabs-row-9 { z-index:1; }
+.ui-extratabs-row-10 { z-index:0; }
+.ui-extratabs .ui-extratabs-multiline .ui-extratabs-shift--10 { top:-22.5em; }
+.ui-extratabs .ui-extratabs-multiline .ui-extratabs-shift--9 { top:-20.25em; }
+.ui-extratabs .ui-extratabs-multiline .ui-extratabs-shift--8 { top:-18em; }
+.ui-extratabs .ui-extratabs-multiline .ui-extratabs-shift--7 { top:-15.75em; }
+.ui-extratabs .ui-extratabs-multiline .ui-extratabs-shift--6 { top:-13.5em; }
+.ui-extratabs .ui-extratabs-multiline .ui-extratabs-shift--5 { top:-11.25em; }
+.ui-extratabs .ui-extratabs-multiline .ui-extratabs-shift--4 { top:-9em; }
+.ui-extratabs .ui-extratabs-multiline .ui-extratabs-shift--3 { top:-6.75em; }
+.ui-extratabs .ui-extratabs-multiline .ui-extratabs-shift--2 { top:-4.5em; }
+.ui-extratabs .ui-extratabs-multiline .ui-extratabs-shift--1 { top:-2.25em; }
+.ui-extratabs .ui-extratabs-multiline .ui-extratabs-shift-0 { top:0; }
+.ui-extratabs .ui-extratabs-multiline .ui-extratabs-shift-1 { top:2.25em; }
+.ui-extratabs .ui-extratabs-multiline .ui-extratabs-shift-2 { top:4.5em; }
+.ui-extratabs .ui-extratabs-multiline .ui-extratabs-shift-3 { top:6.75em; }
+.ui-extratabs .ui-extratabs-multiline .ui-extratabs-shift-4 { top:9em; }
+.ui-extratabs .ui-extratabs-multiline .ui-extratabs-shift-5 { top:11.25em; }
+.ui-extratabs .ui-extratabs-multiline .ui-extratabs-shift-6 { top:13.5em; }
+.ui-extratabs .ui-extratabs-multiline .ui-extratabs-shift-7 { top:15.75em; }
+.ui-extratabs .ui-extratabs-multiline .ui-extratabs-shift-8 { top:18em; }
+.ui-extratabs .ui-extratabs-multiline .ui-extratabs-shift-9 { top:20.25em; }
+.ui-extratabs .ui-extratabs-multiline .ui-extratabs-shift-10 { top:22.5em; }
