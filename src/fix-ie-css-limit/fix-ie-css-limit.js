@@ -12,7 +12,7 @@
 
 (function ($) {
 
-    if (document.styleSheets.length < 31) return;
+    if (document.styleSheets.length < ($.cssFixCountIE || 31)) return;
     var tmpA = document.createElement("a"),
         links = $("link[rel='stylesheet']"),
         paths = links.map(function () {
