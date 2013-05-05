@@ -1,6 +1,6 @@
 # jquery-plugins
 
-Simple plugins for the jQuery framework
+Simple plugins for the jQuery library
 
 ### Repository project list
 
