@@ -27,7 +27,7 @@ function FScroll(cont) {
 	inst.resetBoundaries();
 	inst.visible = true;
 	inst.winScrollHandler(); // hide floating scrolls for containers which are out of sight
-	$(window).bind("scroll", function () { inst.winScrollHandler(); });
+	$(window).bind("scroll resize", function () { inst.winScrollHandler(); });
 	inst.sbar.bind("scroll", function () { inst.sbarScrollHandler(this); });
 	cont.bind("scroll", function () { inst.contScrollHandler(this); });
 }
