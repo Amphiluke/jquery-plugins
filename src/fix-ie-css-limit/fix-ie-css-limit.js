@@ -12,28 +12,29 @@
 
 (function ($) {
 
-    if (document.styleSheets.length < ($.cssFixCountIE || 31)) return;
-    var tmpA = document.createElement("a"),
-        links = $("link[rel='stylesheet']"),
-        paths = links.map(function () {
-            var mediaAttr = this.getAttribute("media");
-            if (!mediaAttr || (mediaAttr.indexOf("print") == -1)) {
-                tmpA.href = this.href; // workaround for obtaining an absolute URL (independent of where the @import directive will be placed)
-                return tmpA.href;
-            }
-        }).get(),
-        len = paths.length,
-        importsPerStyle = 15; // a number of @import directives per one CSS file
-    links.slice(Math.ceil(len / importsPerStyle)).remove();
-    links = $("link[rel='stylesheet']");
-    links.each(function () {
-        if (this.styleSheet && this.styleSheet.cssText != "") {
-            this.styleSheet.cssText = "";
-        }
-    });
-    for (var i = 0; i < len; i++) {
-        links[Math.floor(i / importsPerStyle)].styleSheet.addImport(paths[i]);
-    }
+	@if (@_jscript_version >= 10) return; @end
+	if (document.styleSheets.length < ($.cssFixCountIE || 31)) return;
+	var tmpA = document.createElement("a"),
+		links = $("link[rel='stylesheet']"),
+		paths = links.map(function () {
+			var mediaAttr = this.getAttribute("media");
+			if (!mediaAttr || (mediaAttr.indexOf("print") == -1)) {
+				tmpA.href = this.href; // workaround for obtaining an absolute URL (independent of where the @import directive will be placed)
+				return tmpA.href;
+			}
+		}).get(),
+		len = paths.length,
+		importsPerStyle = 15; // a number of @import directives per one CSS file
+	links.slice(Math.ceil(len / importsPerStyle)).remove();
+	links = $("link[rel='stylesheet']");
+	links.each(function () {
+		if (this.styleSheet && this.styleSheet.cssText != "") {
+			this.styleSheet.cssText = "";
+		}
+	});
+	for (var i = 0; i < len; i++) {
+		links[Math.floor(i / importsPerStyle)].styleSheet.addImport(paths[i]);
+	}
 
 })(jQuery);
 
