@@ -30,19 +30,3 @@ Simple plugins for the jQuery library
     jQuery UI widget which extends the "standard" [Tabs widget](http://jqueryui.com/tabs/). The extratabs widget solves a problem of too large number of tabs by providing a multiline tabs feature or tabs scrolling as an alternative. Tab sheet thumbnails is another feature supported by the widget
 
     [learn more](https://github.com/Amphiluke/jquery-plugins/tree/master/src/extratabs#extratabs) | [sources](https://github.com/Amphiluke/jquery-plugins/tree/master/src/extratabs) | [live demo](http://diapeira.1gb.ru/diapeira/jquery-plugins/extratabs.html)
-
-
-
-
-
-
-
-
-
-
-
-
-1. [extratabs](https://github.com/Amphiluke/jquery-plugins/tree/master/src/extratabs)
-2. [fix-ie-css-limit](https://github.com/Amphiluke/jquery-plugins/tree/master/src/fix-ie-css-limit)
-3. [floatingscroll](https://github.com/Amphiluke/jquery-plugins/tree/master/src/floatingscroll)
-4. [overplaceholder](https://github.com/Amphiluke/jquery-plugins/tree/master/src/overplaceholder)
