@@ -68,7 +68,7 @@ function bindLblEvents(lbl, fld, opts) {
 function bindFldEvents(lbl, fld, opts) {
 	fld.bind("focus blur", function (e) {
 		if (!checkIfEmpty(fld, opts.reEmpty)) {
-			opts[(e.type == "blur") ? "onshow" : "onhide"].call(lbl[0]);
+			opts[(e.type === "blur") ? "onshow" : "onhide"].call(lbl[0]);
 		}
 	})
 	.bind("progvalchange", function () { // trigger this event after programmatic value change
@@ -78,7 +78,7 @@ function bindFldEvents(lbl, fld, opts) {
 
 function processOPH(lbl, opts) {
 	var fld = $("#" + lbl.attr("for"));
-	if (fld.length != 0) {
+	if (fld.length !== 0) {
 		lbl.addClass("overplaceholder");
 		wrapFld(lbl, fld);
 		if ($.isFunction(opts.onafterWrap)) {
@@ -108,10 +108,11 @@ $.fn.overplaceholder = function (opts) {
 
 $(document).ready(function () {
 	// restore overplaceholders' initial state when their parent form is being resetted.
-	// Use the .live() method, since overplaceholder may be applied to dynamically created forms.
-	// In IE the reset event does not bubble, so it satisfies with .bind() instead
-	$("form")[($.support.submitBubbles) ? "live" : "bind"]("reset", function () {
-		$(".overplaceholder", this).trigger("parentformreset");
+	// Use event delegation, since overplaceholder may be applied to dynamically created forms.
+	// Old IE versions don't bubble the "reset" event, so let them go without delegation
+	var respondent = $.support.submitBubbles ? $(document) : $("form");
+	respondent.bind("reset", function (e) {
+		$(".overplaceholder", e.target).trigger("parentformreset");
 	});
 });
 
