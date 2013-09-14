@@ -26,14 +26,14 @@ To apply this solution just attach the script in the `HEAD` section of the docum
         <link type="text/css" rel="stylesheet" href="style32.css" />
         ...
         <!--[if IE]>
-        <script type="text/javascript" src="fix-ie-css-limit/fix-ie-css-limit-standalone.min.js"></script>
+        <script type="text/javascript" src="fix-ie-css-limit/fix-ie-css-limit.min.js"></script>
         <![endif]-->
     </head>
 ```
 
 There are two versions of fix-ie-css-limit: [standalone](https://github.com/Amphiluke/pure-js/tree/master/src/fix-ie-css-limit) and [jQuery based](https://github.com/Amphiluke/jquery-plugins/tree/master/src/fix-ie-css-limit).
 
-Sometimes it's appear to be a good idea to execute the fix-ie-css-limit script even if the number of _statically_ attached style sheets doesn't exceed 31 (e.g. some graphic modules may _dynamically_ create style sheets, see also [this issue](https://github.com/Amphiluke/pure-js/issues/2)). You may override the default execution criterion _Ň_ by assigning the desired "critical" number as in examples below:
+Sometimes it's appear to be a good idea to execute the fix-ie-css-limit script even if the number of _statically_ attached style sheets doesn't exceed 31 (e.g. some graphic modules may _dynamically_ create style sheets, see also [this issue](https://github.com/Amphiluke/jquery-plugins/issues/1)). You may override the default execution criterion _Ň_ by assigning the desired "critical" number as in examples below:
 
 ```javascript
     // for jQuery based version:
