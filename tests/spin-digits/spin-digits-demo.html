@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8" />
+	<title>Spinning digits</title>
+	<link rel="stylesheet" href="../../src/spin-digits/spin-digits.css" />
+</head>
+
+<body>
+
+<h1>Spinning digits</h1>
+
+<h3>Floating point values</h3>
+<p>
+	<a class="spin-down" href="#">&#x25BC;</a> |
+	<a class="spin-rnd" href="#">RND</a> |
+	<a class="spin-up" href="#">&#x25B2;</a><br /><br />
+	<span class="spin-test"></span>
+</p>
+
+<h3>Integers</h3>
+<p>
+	<a class="spin-down" href="#">&#x25BC;</a> |
+	<a class="spin-rnd" href="#">RND</a> |
+	<a class="spin-up" href="#">&#x25B2;</a><br /><br />
+	<span class="spin-test spin-digit-int"></span>
+</p>
+
+<script src="../vendor/jquery.js"></script>
+<script src="../../src/spin-digits/spin-digits.min.js"></script>
+<script>
+(function () {
+
+"use strict";
+
+var spinValue = generateRndValue();
+
+function formatCurrency(value) {
+	return ((value < 0) ? "-" : "") + "$\xA0" + Math.abs(value).toFixed(2).replace(/(\d)(?=(?:\d{3})+\.)/g, "$1\xA0");
+}
+function generateRndValue() {
+	return Math.random() * 100000 - 50000;
+}
+
+$(".spin-test")
+	.text(formatCurrency(spinValue))
+	.spinDigits("init");
+$("body").on("click", ".spin-down, .spin-up, .spin-rnd", function (e) {
+	var $this = $(this),
+		spin = $this.siblings(".spin-test");
+	if (spin.find(":spinned").length === 0) {
+		if ($this.is(".spin-rnd")) {
+			spinValue = generateRndValue();
+		} else {
+			spinValue += $this.is(".spin-up") ? Math.random() : -Math.random();
+		}
+		spin.spinDigits("set", formatCurrency(spinValue));
+	}
+	e.preventDefault();
+});
+
+})();
+</script>
+
+</body>
+</html>

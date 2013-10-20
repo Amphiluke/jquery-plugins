@@ -1,0 +1,49 @@
+.spin-digit-wrap {
+	display:inline-block;
+	font-family:monospace;
+	font-size:16px;
+	height:16px;
+	line-height:1;
+	overflow:hidden;
+}
+.spin-digit-sheet {
+	display:inline-block;
+	height:48px;
+	position:relative;
+	top:-16px;
+	-webkit-transition:-webkit-transform 0.5s linear;
+	-moz-transition:-moz-transform 0.5s linear;
+	-o-transition:-o-transform 0.5s linear;
+	transition:transform 0.5s linear;
+	vertical-align:top;
+}
+.spin-digit-sheet-spin-inc {
+	-webkit-transform:translate(0, 16px);
+	-moz-transform:translate(0, 16px);
+	-o-transform:translate(0, 16px);
+	transform:translate(0, 16px);
+}
+.spin-digit-sheet-spin-dec {
+	-webkit-transform:translate(0, -16px);
+	-moz-transform:translate(0, -16px);
+	-o-transform:translate(0, -16px);
+	transform:translate(0, -16px);
+}
+.spin-digit {
+	display:block;
+	height:16px;
+	text-align:right;
+}
+
+/* Integers case */
+.spin-digit-int .spin-digit-wrap {
+	font-size:0; /* required to hide the decimal point */
+}
+.spin-digit-int .spin-digit-wrap > span {
+	font-size:16px; /* restore font-size for digits */
+}
+.spin-digit-int .spin-digit-sheet + .spin-digit-sheet {
+	left:-99999px; /* hide the fractional part */
+	top:-99999px;
+	position:absolute;
+}
