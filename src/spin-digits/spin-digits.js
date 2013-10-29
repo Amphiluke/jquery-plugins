@@ -81,6 +81,31 @@ $.extend(SpinDigits.prototype, {
 	},
 
 	/**
+	 * Update current value without animation. May be used to correct the displayed value when the page becomes visible
+	 * after some period of inactivity (browsers stop CSS3 animation when the page is not visible)
+	 * @param {String} updateValueStr An updated string-formatted value
+	 */
+	forceUpdate: function (updateValueStr) {
+		var updateValueParts = updateValueStr.match(re.intFrac),
+			spinSheets, spinDigits, spinSheet, index;
+		if (!updateValueParts) {
+			throw new Error("Unable to parse the value");
+		}
+		spinSheets = this.$el.find(".spin-digit-sheet");
+		spinDigits = this.$el.find(".spin-digit");
+		spinSheet = spinSheets.eq(0);
+		// animation may be currently in progress, so choose a correct digit group to update
+		index = spinSheet.hasClass("spin-digit-sheet-spin-inc") ? 0 : (spinSheet.hasClass("spin-digit-sheet-spin-dec") ? 2 : 1);
+		spinDigits.eq(index).text(updateValueParts[2]);
+		spinSheet = spinSheets.eq(1);
+		index = spinSheet.hasClass("spin-digit-sheet-spin-inc") ? 3 : (spinSheet.hasClass("spin-digit-sheet-spin-dec") ? 5 : 4);
+		spinDigits.eq(index).text(updateValueParts[3]);
+		this.prefix.html(updateValueParts[1]);
+		this.suffix.html(updateValueParts[4]);
+		this.currentValueStr = updateValueStr;
+	},
+
+	/**
 	 * Plugin re-initialization
 	 */
 	reset: function () {
@@ -141,8 +166,12 @@ $.fn.spinDigits = function (op, data) {
 		if (!inst) {
 			$el.data("spinDigits", new SpinDigits($el));
 		}
-		if ((op === "set") && (typeof data !== "undefined")) {
-			inst.setValue(data);
+		if (typeof data !== "undefined") {
+			if (op === "set") {
+				inst.setValue(data);
+			} else if (op === "update") {
+				inst.forceUpdate(data);
+			}
 		}
 	});
 	return this;
