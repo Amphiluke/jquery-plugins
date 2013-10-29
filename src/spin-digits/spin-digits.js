@@ -156,21 +156,26 @@ if (!transitionSupported) {
 /**
  * The spinDigits plugin method per se
  * @param {String} [op] An operation to perform (e.g. "init" or "set")
- * @param {*} [data] Additional parameters depending on what operation is requested
+ * @param {*} [data] Additional parameter depending on what operation is requested or a callback returning the
+ *   parameter for an element in the set of matched elements
  * @returns {jQuery} A jQuery object, the initial set of elements
  */
 $.fn.spinDigits = function (op, data) {
+	var dataType = typeof data;
 	this.each(function () {
 		var $el = $(this),
-			inst = $el.data("spinDigits");
+			inst = $el.data("spinDigits"),
+			arg;
 		if (!inst) {
-			$el.data("spinDigits", new SpinDigits($el));
+			inst = new SpinDigits($el);
+			$el.data("spinDigits", inst);
 		}
-		if (typeof data !== "undefined") {
+		if (dataType !== "undefined") {
+			arg = (dataType === "function") ? data.call(this, inst) : data;
 			if (op === "set") {
-				inst.setValue(data);
+				inst.setValue(arg);
 			} else if (op === "update") {
-				inst.forceUpdate(data);
+				inst.forceUpdate(arg);
 			}
 		}
 	});
