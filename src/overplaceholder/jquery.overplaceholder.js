@@ -57,6 +57,9 @@ function bindLblEvents(lbl, fld, opts) {
 		// (do not call the .val() method), since the form is about to reset
 		var defVal = fld[0].defaultValue || "";
 		opts[(defVal.replace(opts.reEmpty, "") === "") ? "onshow" : "onhide"].call(lblDOM);
+	})
+	.bind("adjustPos", function () {
+		correctOPHPos(lbl, fld);
 	});
 	// Prevent placeholder text select in IE and Opera. Other browsers use CSS (see jquery.overplaceholder.css)
 	// In IE the UNSELECTABLE attribute is implemented as an expando.

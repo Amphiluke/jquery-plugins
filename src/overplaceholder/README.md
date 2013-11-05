@@ -76,6 +76,15 @@ If you *programmatically* change the `value` property of some field the overplac
 
 This will let the plugin know that the value was changed and a placeholder visibility needs to be re-checked.
 
+Note that attaching overplaceholder to *initially hidden* field may result in some mispositioning of the label relatively to the field. This is because of impossibility of calculation the sizes of hidden elements. So, one may need a way to correct overplaceholder position when the element becomes visible. Just trigger a custom event `"adjustPos"` on the mispositioned label element to adjust its position.
+
+```javascript
+    $("label[for='some-hidden-textfield']").overplaceholder();
+    // ...
+    $("#some-hidden-textfield").show();
+    $("label[for='some-hidden-textfield']").triggerHandler("adjustPos");
+```
+
 Notice that overplaceholder is absolutely indifferent to any form validation, since it does not change input field content. So, you need not walk through all the fields and clear placeholder text before you invoke validation procedure.
 
 ### Live demos
