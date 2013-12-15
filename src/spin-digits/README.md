@@ -2,7 +2,7 @@
 
 ### The Crux of the Matter
 
-The plugin applies flip animation to dynamically changing numeric data on the web-page. The current plugin version works only with floating point numbers, but there is a simple CSS trick allowing the use of the plugin to animate integers as well (see the [Examples](#examples) section below).
+The plugin applies flip animation to dynamically changing numeric data on the web-page. The current plugin version works only with floating point numbers, but there is a simple CSS trick allowing the use of the plugin to animate integers as well (see the [Tips & tricks](#tips--tricks) section below).
 
 ### Details & API
 
@@ -34,6 +34,21 @@ and secondly any number of triggers of animated value change
     $(".spin-test").spinDigits("set", "$\xA076\xA0543.21"); // \xA0 => &nbsp;
     // ...
     $(".spin-test").spinDigits("set", "-$\xA01.23");
+```
+
+The **spin-digits** plugin provides an optional built-in CSS class `spin-digit-arr` which may be used to attach a graphic arrow element to indicate the direction of the last value change. Just add this class to the target element (i.e. `<p class="spin-test">` in the above example).
+
+### Tips & tricks
+
+You may apply custom styles to indicate the direction of value changes. Every time the value is altered the plugin updates an attribute `data-dynamics` on the target element. The attribute is assigned either `"pos"` or `"neg"` depending on whether the new value is larger or smaller than the previous one. Use this to apply distinct design for both direction cases.
+
+```css
+.spin-test[data-dynamics="pos"] {
+    color: green;
+}
+.spin-test[data-dynamics="neg"] {
+    color: red;
+}
 ```
 
 The modern browsers try to optimize the performance of a web-page, so they disable CSS3 animations if the page is not visible to the user (e.g. the browser window is minimized or the user is on another browser tab). Sometimes one needs a way to update quickly the displayed value without animation, say, when the page becomes visible. It is possible with using the `"update"` operation through the `.spinDigits()` method.

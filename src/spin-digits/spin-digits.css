@@ -39,11 +39,37 @@
 .spin-digit-int .spin-digit-wrap {
 	font-size:0; /* required to hide the decimal point */
 }
-.spin-digit-int .spin-digit-wrap > span {
+.spin-digit-int .spin-digit-wrap > span,
+.spin-digit-int .spin-digit-wrap > samp {
 	font-size:16px; /* restore font-size for digits */
 }
-.spin-digit-int .spin-digit-sheet + .spin-digit-sheet {
+.spin-digit-int .spin-digit-sheet ~ .spin-digit-sheet,
+.spin-digit-int .spin-digit-sheet ~ .spin-digit-stat {
 	left:-99999px; /* hide the fractional part */
 	top:-99999px;
 	position:absolute;
 }
+
+/* optional graphic element (an arrow) indicating the direction of the last change */
+.spin-digit-arr .spin-digit-wrap:after {
+	content:""; /* such a strange prior declaration is required by FF */
+}
+.spin-digit-arr[data-dynamics="pos"] .spin-digit-wrap:after,
+.spin-digit-arr[data-dynamics="neg"] .spin-digit-wrap:after {
+	background:url("data:image/gif;base64,R0lGODlhCAAaAJECAP9gYACzAP///wAAACH5BAEAAAIALAAAAAAIABoAAAInlBOmiMv9nlOTimYx1XWn/FniaACAaKKnlbIr1cKvEpu2Ldw1LisFADs=") 0 0 no-repeat;
+	content:"";
+	display:inline-block;
+	font-size:0;
+	height:12px;
+	line-height:0;
+	margin-left:2px;
+	-webkit-transition:background-position 0.5s linear;
+	-moz-transition:background-position 0.5s linear;
+	-ms-transition:background-position 0.5s linear;
+	-o-transition:background-position 0.5s linear;
+	transition:background-position 0.5s linear;
+	width:8px;
+	}
+.spin-digit-arr[data-dynamics="neg"] .spin-digit-wrap:after {
+	background-position:0 -14px;
+	}

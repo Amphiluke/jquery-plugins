@@ -21,7 +21,7 @@ var re = {
 
 function SpinDigits($el) {
 	this.$el = $el;
-	this.currentValueStr = $el.text();
+	this.currentValueStr = $.trim($el.text());
 	this._setMarkup();
 }
 
@@ -31,7 +31,7 @@ $.extend(SpinDigits.prototype, {
 		var html = this.$el.html(),
 			prefix = "<span class='spin-digit-prefix'>$1</span>",
 			suffix = "<span class='spin-digit-suffix'>$4</span>",
-			sheetBegin = "<span class='spin-digit-sheet'><samp class='spin-digit'></samp><samp class='spin-digit'>",
+			sheetBegin = "<samp class='spin-digit-stat'></samp><span class='spin-digit-sheet'><samp class='spin-digit'></samp><samp class='spin-digit'>",
 			sheetEnd = "</samp><samp class='spin-digit'></samp></span>",
 			intPart = sheetBegin + "$2" + sheetEnd,
 			fracPart = sheetBegin + "$3" + sheetEnd;
@@ -44,6 +44,49 @@ $.extend(SpinDigits.prototype, {
 	},
 
 	/**
+	 * Compare string representation of two values and separate the modified parts of a number from the static part.
+	 * Note that changes in higher digit position results in that all the lower positions will be considered modified.
+	 * Say, the previous number representation is "1234.56" and the new one is "1235.56". Then the static part
+	 * would be "123" while the dynamic (modified) part would be "5.56"
+	 * @param {String} prevInt
+	 * @param {String} prevFrac
+	 * @param {String} newInt
+	 * @param {String} newFrac
+	 * @returns {Object} A hash containing the static and dynamic parts of a string representation of a number
+	 * @private
+	 */
+	_splitParts: function (prevInt, prevFrac, newInt, newFrac) {
+		var parts = {
+				intg: {stat: newInt, dyn: ""},
+				frac: {stat: newFrac, dyn: ""}
+			},
+			len, i;
+		if (prevInt.length !== newInt.length) {
+			parts.intg.dyn = newInt;
+			parts.frac.dyn = newFrac;
+			parts.intg.stat = parts.frac.stat = "";
+			return parts;
+		}
+		for (i = 0, len = newInt.length; i < len; i++) {
+			if (prevInt[i] !== newInt[i]) {
+				parts.intg.stat = newInt.slice(0, i);
+				parts.intg.dyn = newInt.slice(i);
+				parts.frac.stat = "";
+				parts.frac.dyn = newFrac;
+				return parts;
+			}
+		}
+		for (i = 0, len = newFrac.length; i < len; i++) {
+			if (prevFrac[i] !== newFrac[i]) {
+				parts.frac.stat = newFrac.slice(0, i);
+				parts.frac.dyn = newFrac.slice(i);
+				return parts;
+			}
+		}
+		return parts;
+	},
+
+	/**
 	 * Update a value within the spinner.
 	 * Note that the argument should be a string (!), not a number, since we don't know here
 	 * what type of number format the user wants to apply. So, let him decide for himself
@@ -52,7 +95,8 @@ $.extend(SpinDigits.prototype, {
 	setValue: function (newValueStr) {
 		var newValue, newValueParts,
 			prevValue, prevValueParts,
-			spinInc, spinSheets, spinDigits, spinClass;
+			spinInc, spinStats, spinSheets, spinDigits, spinClass,
+			splitParts;
 		if (this.currentValueStr === newValueStr) {
 			return;
 		}
@@ -64,17 +108,24 @@ $.extend(SpinDigits.prototype, {
 			throw new Error("Unable to parse the value");
 		}
 		spinInc = (newValue >= prevValue);
+		spinStats = this.$el.find(".spin-digit-stat");
 		spinSheets = this.$el.find(".spin-digit-sheet");
 		spinDigits = this.$el.find(".spin-digit");
 		spinClass = spinInc ? "spin-digit-sheet-spin-inc" : "spin-digit-sheet-spin-dec";
-		if (newValueParts[2] !== prevValueParts[2]) {
-			spinDigits.eq(spinInc ? 0 : 2).text(newValueParts[2]);
+		splitParts = this._splitParts(prevValueParts[2], prevValueParts[3], newValueParts[2], newValueParts[3]);
+		if (splitParts.intg.dyn) { // do update only if the integer part was modified
+			spinStats.eq(0).text(splitParts.intg.stat);
+			spinDigits.eq(1).text(prevValueParts[2].slice(splitParts.intg.stat.length));
+			spinDigits.eq(spinInc ? 0 : 2).text(splitParts.intg.dyn);
 			spinSheets.eq(0).addClass(spinClass);
 		}
-		if (newValueParts[3] !== prevValueParts[3]) {
-			spinDigits.eq(spinInc ? 3 : 5).text(newValueParts[3]);
+		if (splitParts.frac.dyn) {
+			spinStats.eq(1).text(splitParts.frac.stat);
+			spinDigits.eq(4).text(prevValueParts[3].slice(splitParts.frac.stat.length));
+			spinDigits.eq(spinInc ? 3 : 5).text(splitParts.frac.dyn);
 			spinSheets.eq(1).addClass(spinClass);
 		}
+		this.$el.attr("data-dynamics", spinInc ? "pos" : "neg"); // may be used for stylization as well
 		this.prefix.html(newValueParts[1]);
 		this.suffix.html(newValueParts[4]);
 		this.currentValueStr = newValueStr;
@@ -100,6 +151,7 @@ $.extend(SpinDigits.prototype, {
 		spinSheet = spinSheets.eq(1);
 		index = spinSheet.hasClass("spin-digit-sheet-spin-inc") ? 3 : (spinSheet.hasClass("spin-digit-sheet-spin-dec") ? 5 : 4);
 		spinDigits.eq(index).text(updateValueParts[3]);
+		this.$el.find(".spin-digit-stat").text("");
 		this.prefix.html(updateValueParts[1]);
 		this.suffix.html(updateValueParts[4]);
 		this.currentValueStr = updateValueStr;
