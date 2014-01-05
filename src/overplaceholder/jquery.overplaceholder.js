@@ -97,15 +97,15 @@ function processOPH(lbl, opts) {
 }
 
 $.fn.overplaceholder = function (opts) {
-	var _sets = {
+	var defaults = {
 			onhide: function () { $(this).hide(); },
 			onshow: function () { $(this).show(); },
 			onafterWrap: null,
 			reEmpty: ""
-		};
-	$.extend(_sets, opts);
+		},
+		commonOpts = (typeof opts === "function") ? null : $.extend(defaults, opts);
 	return this.each(function () {
-		processOPH($(this), _sets);
+		processOPH($(this), commonOpts || $.extend({}, defaults, opts.call(this)));
 	});
 };
 
