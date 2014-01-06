@@ -3,7 +3,7 @@
  * Script to fix IE limitation on style sheet number (31 as a maximum)
  *
  * https://github.com/Amphiluke/jquery-plugins/tree/master/src/fix-ie-css-limit
- * http://diapeira.1gb.ru/diapeira/other/fix-ie-css-limit.html
+ * http://amphiluke.github.io/pure-js/fix-ie-css-limit/
  *
  * Attach the script in the HEAD section of the document after all the LINK tags
  */

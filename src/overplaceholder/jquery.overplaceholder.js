@@ -2,7 +2,7 @@
  * jQuery overplaceholder Plugin 1.1.2
  *
  * https://github.com/Amphiluke/jquery-plugins/tree/master/src/overplaceholder
- * http://diapeira.1gb.ru/diapeira/jquery-plugins/overplaceholder.html
+ * http://amphiluke.github.io/jquery-plugins/overplaceholder/
  *
  * Copyright (c) 2011-2014 Amphiluke
  *

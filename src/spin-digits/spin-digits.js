@@ -3,6 +3,7 @@
  * jQuery plugin to animate dynamic changes of numeric data on the web-page
  *
  * https://github.com/Amphiluke/jquery-plugins/tree/master/src/spin-digits
+ * http://amphiluke.github.io/jquery-plugins/spin-digits/
  */
 (function ($) {
 

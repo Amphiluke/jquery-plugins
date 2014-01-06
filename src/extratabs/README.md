@@ -28,4 +28,4 @@ Here is an example of the widget initialization:
 
 ### Live demo
 
-[Here](http://diapeira.1gb.ru/diapeira/jquery-plugins/extratabs.html), you may find a live demo and play with widget options.
+[Here](http://amphiluke.github.io/jquery-plugins/extratabs/), you may find a live demo and play with widget options.

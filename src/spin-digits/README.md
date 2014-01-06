@@ -85,4 +85,4 @@ What the class `spin-digit-int` in fact does is hide from view undesirable decim
 
 ### Demos
 
-Checkout the test file [spin-digits-demo.html](https://github.com/Amphiluke/jquery-plugins/blob/master/tests/spin-digits/spin-digits-demo.html) to see the plugin in action.
+Visit [this demo page](http://amphiluke.github.io/jquery-plugins/spin-digits/) to see the plugin in action.

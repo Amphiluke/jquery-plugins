@@ -91,4 +91,4 @@ Notice that overplaceholder is absolutely indifferent to any form validation, si
 
 ### Live demos
 
-You may find some demos of use the overplaceholder plugin [here](http://diapeira.1gb.ru/diapeira/jquery-plugins/overplaceholder.html).
+You may find some demos of use the overplaceholder plugin [here](http://amphiluke.github.io/jquery-plugins/overplaceholder/).

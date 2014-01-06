@@ -34,4 +34,4 @@ If you attach a floating scroll bar to a container whose size and/or content may
 
 ### Live demos
 
-You may find some demos of use the floatingscroll plugin [here](http://diapeira.1gb.ru/diapeira/jquery-plugins/floatingscroll.html).
+You may find some demos of use the floatingscroll plugin [here](http://amphiluke.github.io/jquery-plugins/floatingscroll/).

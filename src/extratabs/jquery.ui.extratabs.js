@@ -3,7 +3,7 @@
  * jQuery UI widget extending tabs UI functionality
  *
  * https://github.com/Amphiluke/jquery-plugins/tree/master/src/extratabs
- * http://diapeira.1gb.ru/diapeira/jquery-plugins/extratabs.html
+ * http://amphiluke.github.io/jquery-plugins/extratabs/
  */
 
 (function ($) {

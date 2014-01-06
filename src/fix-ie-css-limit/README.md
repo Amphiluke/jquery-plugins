@@ -49,4 +49,4 @@ Of course, this should be done _before_ fix-ie-css-limit executes. After the fix
 
 ### Live demo
 
-[Here](http://diapeira.1gb.ru/diapeira/other/test-fix-ie-css-limit/), you may find a demo page using the fix-ie-css-limit (test it with IE versions older than 10).
+[Here](http://amphiluke.github.io/pure-js/fix-ie-css-limit/), you may find a demo page using the fix-ie-css-limit (test it with IE versions older than 10).

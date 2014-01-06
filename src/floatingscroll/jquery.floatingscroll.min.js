@@ -3,7 +3,7 @@
  * supported by jQuery v1.3+
  *
  * https://github.com/Amphiluke/jquery-plugins/tree/master/src/floatingscroll
- * http://diapeira.1gb.ru/diapeira/jquery-plugins/floatingscroll.html
+ * http://amphiluke.github.io/jquery-plugins/floatingscroll/
  *
  * Copyright (c) 2011-2014 Amphiluke
  *
