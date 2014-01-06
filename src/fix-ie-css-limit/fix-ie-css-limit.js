@@ -28,8 +28,13 @@
 	links.slice(Math.ceil(len / importsPerStyle)).remove();
 	links = $("link[rel='stylesheet']");
 	links.each(function () {
-		if (this.styleSheet && this.styleSheet.cssText != "") {
-			this.styleSheet.cssText = "";
+		try {
+			if (this.styleSheet && this.styleSheet.cssText != "") {
+				this.styleSheet.cssText = "";
+			}
+		} catch (e) {
+			// exceptions may be rarely thrown, e.g. when a stylesheet uses
+			// non-typical referencing method (like data:uri)
 		}
 	});
 	for (var i = 0; i < len; i++) {
