@@ -33,10 +33,14 @@ function FScroll(cont) {
 		inst.resetBoundaries();
 	});
 	inst.sbar.bind("scroll", function () {
-		inst.syncCont(this);
+		if (inst.visible) {
+			inst.syncCont(this);
+		}
 	});
 	cont.bind("scroll", function () {
-		inst.syncSbar(this);
+		if (!inst.visible) {
+			inst.syncSbar(this);
+		}
 	});
 }
 
