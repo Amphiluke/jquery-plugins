@@ -41,6 +41,11 @@ function FScroll(cont) {
 		if (!inst.visible) {
 			inst.syncSbar(this);
 		}
+	})
+	.bind("focusin", function () {
+		setTimeout(function () {
+			inst.syncSbar(cont[0]);
+		}, 0);
 	});
 }
 
