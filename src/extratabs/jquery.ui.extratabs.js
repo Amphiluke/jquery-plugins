@@ -1,5 +1,5 @@
 /*!
- * jquery.ui.extratabs.js by Amphiluke, 2013-2014 (c)
+ * jquery.ui.extratabs.js by Amphiluke, 2013-2015 (c)
  * jQuery UI widget extending tabs UI functionality
  *
  * https://github.com/Amphiluke/jquery-plugins/tree/master/src/extratabs
