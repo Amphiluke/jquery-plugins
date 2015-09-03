@@ -4,32 +4,42 @@
 
 The general purpose of the plugin is to provide some lengthy containers on the page with a separate horizontal scroll bar, which does not vanish from sight when the entire page is scrolled. So, the user will always be able to scroll the container even if its own scroll bar is hidden from view.
 
-Moreover, the plugin displays such an additional floating scroll bar only in case of actual need, i.e. the floatingscroll does not result in unnecessary scroll bar duplication. So, one uses the floating scroll bar only if the native one is out of sight.
+Moreover, the plugin displays such an additional floating scroll bar only in case of actual need, i.e. the floatingscroll does not result in unnecessary scroll bar duplication. So, one uses the floating scroll bar only if the “native” one is out of sight.
 
 ### Details & API
 
-There is the only public method used to instantiate a floating scroll — `.attachScroll()`. The method does not take parameters and it should be called in context of a scrollable container.
+There is the only public method used to instantiate a floating scroll — `.floatingScroll()` (note that the old method alias `attachScroll` is kept for backward compatibility, but it will be removed in future versions). The plugin method `.floatingScroll()` should be called in context of a scrollable container. It takes an optional argument `method`. The currently supported methods are
 
-The plugin registers the `adjustScroll` event type used to update the size and position of the floating scroll bar in case of dynamically changed content. Trigger `adjustScroll` event on the container the floating scroll is attached to.
+* `init` (default value) — used to initialize a floating scroll widget;
+* `adjustScroll` — used to force update of the floating scroll bar parameters (size and position);
+* `destroyScroll` — removes a scroll bar and all related event handlers.
+
+You may also trigger events `adjustScroll` and `destroyScroll` for containers with attached floating scroll bar: this does the same as invoking the corresponding methods.
 
 ### Examples
 
-The only thing required to apply the floatingscroll to a static container (whose sizes will never change during the session) is a single call to the `.attachScroll()` method on the DOM ready event:
+The only thing required to apply the floatingscroll to a static container (whose sizes will never change during the session) is a single call of the `.floatingScroll()` method on the DOM ready event:
 
 ```javascript
     $(document).ready(function () {
-        $(".spacious-container").attachScroll();
+        $(".spacious-container").floatingScroll();
     });
 ```
 
-If you attach a floating scroll bar to a container whose size and/or content may dynamically change, then you need a way to update the scroll bar each time the container changes. This can be performed by triggering the custom `adjustScroll` event on the target container.
+If you attach a floating scroll bar to a container whose size and/or content may dynamically change, then you need a way to update the scroll bar each time the container changes. This can be done by invoking the method `adjustScroll` as in example below.
 
 ```javascript
-    $(".spacious-container").attachScroll();
+    $(".spacious-container").floatingScroll("init");
     $("#refresh-button").click(function () {
         // ... some actions which change the total scroll width of the container ...
-        $(".spacious-container").trigger("adjustScroll");
+        $(".spacious-container").floatingScroll("adjustScroll");
     });
+```
+
+To detach a scroll bar and remove all related event handlers, use the method `destroyScroll` as follows:
+
+```javascript
+    $(".spacious-container").floatingScroll("destroyScroll");
 ```
 
 ### Live demos
