@@ -1,5 +1,5 @@
 /*!
- * jQuery floatingscroll Plugin 2.0.0
+ * jQuery floatingscroll Plugin 2.0.1
  * supported by jQuery v1.4+
  *
  * https://github.com/Amphiluke/jquery-plugins/tree/master/src/floatingscroll
@@ -30,7 +30,7 @@ function FScroll(cont) {
 	inst.cont = {block: cont[0], left: 0, top: 0, bottom: 0, height: 0, width: 0};
 	inst.sbar = inst.initScroll();
 	inst.visible = true;
-	inst.adjustScrollAPI(); // recalculate floating scrolls and hide those of them whose containers are out of sight
+	inst.adjustAPI(); // recalculate floating scrolls and hide those of them whose containers are out of sight
 	inst.syncSbar(cont[0]);
 	inst.addEventHandlers();
 }
@@ -54,7 +54,7 @@ $.extend(FScroll.prototype, {
 					// Don't use `$.proxy()` since it makes impossible event unbinding individually per instance
 					// (see the warning at http://api.jquery.com/unbind/)
 					scroll: function () {inst.checkVisibility();},
-					resize: function () {inst.adjustScrollAPI();}
+					resize: function () {inst.adjustAPI();}
 				}
 			},
 			{
@@ -72,8 +72,9 @@ $.extend(FScroll.prototype, {
 							inst.syncSbar(inst.cont.block);
 						}, 0);
 					},
-					adjustScroll: function () {inst.adjustScrollAPI();},
-					destroyScroll: function () {inst.destroyScrollAPI();}
+					// The `adjustScroll` event type is kept for backward compatibility only.
+					"adjust adjustScroll": function () {inst.adjustAPI();},
+					destroy: function () {inst.destroyAPI();}
 				}
 			}
 		];
@@ -103,7 +104,7 @@ $.extend(FScroll.prototype, {
 	},
 
 	// Recalculate scroll width and container boundaries
-	adjustScrollAPI: function () {
+	adjustAPI: function () {
 		var inst = this,
 			cont = inst.cont,
 			block = $(cont.block),
@@ -119,7 +120,7 @@ $.extend(FScroll.prototype, {
 	},
 
 	// Remove a scrollbar and all related event handlers
-	destroyScrollAPI: function () {
+	destroyAPI: function () {
 		var handlers = this.eventHandlers,
 			i, len;
 		for (i = 0, len = handlers.length; i < len; i++) {
