@@ -40,7 +40,7 @@ $.extend(FScroll.prototype, {
 	initScroll: function () {
 		var flscroll = $("<div class='fl-scrolls'></div>");
 		$("<div></div>").appendTo(flscroll).css({width: this.cont.block.scrollWidth + "px"});
-		return flscroll.appendTo("body");
+		return flscroll.appendTo(this.cont.block);
 	},
 
 	addEventHandlers: function () {
