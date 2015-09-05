@@ -1,6 +1,6 @@
 /*!
- * jQuery floatingscroll Plugin 2.0.1
- * supported by jQuery v1.4+
+ * jQuery floatingscroll Plugin 2.1.0
+ * supported by jQuery v1.4.3+
  *
  * https://github.com/Amphiluke/jquery-plugins/tree/master/src/floatingscroll
  * http://amphiluke.github.io/jquery-plugins/floatingscroll/
@@ -30,7 +30,7 @@ function FScroll(cont) {
 	inst.cont = {block: cont[0], left: 0, top: 0, bottom: 0, height: 0, width: 0};
 	inst.sbar = inst.initScroll();
 	inst.visible = true;
-	inst.adjustAPI(); // recalculate floating scrolls and hide those of them whose containers are out of sight
+	inst.updateAPI(); // recalculate floating scrolls and hide those of them whose containers are out of sight
 	inst.syncSbar(cont[0]);
 	inst.addEventHandlers();
 }
@@ -54,7 +54,7 @@ $.extend(FScroll.prototype, {
 					// Don't use `$.proxy()` since it makes impossible event unbinding individually per instance
 					// (see the warning at http://api.jquery.com/unbind/)
 					scroll: function () {inst.checkVisibility();},
-					resize: function () {inst.adjustAPI();}
+					resize: function () {inst.updateAPI();}
 				}
 			},
 			{
@@ -73,8 +73,17 @@ $.extend(FScroll.prototype, {
 						}, 0);
 					},
 					// The `adjustScroll` event type is kept for backward compatibility only.
-					"adjust adjustScroll": function () {inst.adjustAPI();},
-					destroy: function () {inst.destroyAPI();}
+					"update.fscroll adjustScroll": function (e) {
+						// Check event namespace to ensure that this is not an extraneous event in a bubbling phase
+						if (e.namespace === "fscroll" || e.type === "adjustScroll") {
+							inst.updateAPI();
+						}
+					},
+					"destroy.fscroll": function (e) {
+						if (e.namespace === "fscroll") {
+							inst.destroyAPI();
+						}
+					}
 				}
 			}
 		];
@@ -104,7 +113,7 @@ $.extend(FScroll.prototype, {
 	},
 
 	// Recalculate scroll width and container boundaries
-	adjustAPI: function () {
+	updateAPI: function () {
 		var inst = this,
 			cont = inst.cont,
 			block = $(cont.block),
@@ -141,7 +150,7 @@ $.fn.attachScroll = $.fn.floatingScroll = function (method) {
 			new FScroll($(this));
 		});
 	} else if (FScroll.prototype.hasOwnProperty(method + "API")) {
-		$this.trigger(method);
+		$this.trigger(method + ".fscroll");
 	}
 	return $this;
 };

@@ -11,10 +11,10 @@ Moreover, the plugin displays such an additional floating scroll bar only in cas
 There is the only public method used to instantiate and control a floating scroll — `.floatingScroll()` (note that the old method alias `attachScroll` is kept for backward compatibility, but it will be removed in future versions). The plugin method `.floatingScroll()` should be called in context of a scrollable container. It takes an optional argument `method`. The currently supported methods are
 
 * `init` (default value) — used to initialize a floating scroll widget;
-* `adjust` — used to force update of the floating scroll bar parameters (size and position);
+* `update` — used to force update of the floating scroll bar parameters (size and position);
 * `destroy` — removes a scroll bar and all related event handlers.
 
-You may also trigger events `adjust` and `destroy` for containers with attached floating scroll bar: this does the same as invoking the corresponding methods.
+You may also trigger events `update.fscroll` and `destroy.fscroll` for containers with attached floating scroll bar: this does the same as invoking the corresponding methods.
 
 ### Examples
 
@@ -26,13 +26,13 @@ $(document).ready(function () {
 });
 ```
 
-If you attach a floating scroll bar to a container whose size and/or content may dynamically change, then you need a way to update the scroll bar each time the container changes. This can be done by invoking the method `adjust` as in example below.
+If you attach a floating scroll bar to a container whose size and/or content may dynamically change, then you need a way to update the scroll bar each time the container changes. This can be done by invoking the method `update` as in example below.
 
 ```javascript
 $(".spacious-container").floatingScroll("init");
 $("#refresh-button").click(function () {
     // ... some actions which change the total scroll width of the container ...
-    $(".spacious-container").floatingScroll("adjust");
+    $(".spacious-container").floatingScroll("update");
 });
 ```
 
