@@ -1,5 +1,5 @@
 /*!
- * jQuery floatingscroll Plugin 2.1.0
+ * jQuery floatingscroll Plugin 2.1.1
  * supported by jQuery v1.4.3+
  *
  * https://github.com/Amphiluke/jquery-plugins/tree/master/src/floatingscroll
@@ -95,8 +95,12 @@ $.extend(FScroll.prototype, {
 	checkVisibility: function () {
 		var inst = this,
 			cont = inst.cont,
-			maxVisibleY = getMaxVisibleY(),
+			mustHide = (inst.sbar[0].scrollWidth <= inst.sbar[0].offsetWidth),
+			maxVisibleY;
+		if (!mustHide) {
+			maxVisibleY = getMaxVisibleY();
 			mustHide = ((cont.bottom <= maxVisibleY) || (cont.top > maxVisibleY));
+		}
 		if (inst.visible === mustHide) {
 			inst.visible = !inst.visible;
 			// we cannot simply hide a floating scroll bar since its scrollLeft property will not update in that case
