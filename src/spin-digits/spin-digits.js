@@ -1,5 +1,5 @@
 /*!
- * spin-digits.js by Amphiluke, 2013-2015 (c)
+ * spin-digits.js by Amphiluke, 2013-2016 (c)
  * jQuery plugin to animate dynamic changes of numeric data on the web-page
  *
  * https://github.com/Amphiluke/jquery-plugins/tree/master/src/spin-digits

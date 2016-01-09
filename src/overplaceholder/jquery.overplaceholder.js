@@ -4,7 +4,7 @@
  * https://github.com/Amphiluke/jquery-plugins/tree/master/src/overplaceholder
  * http://amphiluke.github.io/jquery-plugins/overplaceholder/
  *
- * Copyright (c) 2011-2015 Amphiluke
+ * Copyright (c) 2011-2016 Amphiluke
  *
  * Dual licensed under the MIT and GPL licenses:
  *   http://www.opensource.org/licenses/mit-license.php
