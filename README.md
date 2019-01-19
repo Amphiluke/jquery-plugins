@@ -2,6 +2,8 @@
 
 Simple plugins for the jQuery library
 
+:lock: **The project is archived and is no longer maintained**
+
 ### Repository project list
 
 1. #### [overplaceholder](https://github.com/Amphiluke/jquery-plugins/tree/master/src/overplaceholder)
